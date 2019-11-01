@@ -92,8 +92,14 @@ function validateProjectBody(req, res, next) {
         return res.status(400).json({message: 'missing required data field description: (String)'})
     }
 
-    req.body = {name, description, completed: completed?true:false}
-    next()
+    if (completed === undefined) {
+        req.body = {name, description}
+        next()
+    }
+    else {
+        req.body = {name, description, completed: completed?true:false}
+        next()
+    }
 }
 
 function validateProjectId(req, res, next) {
@@ -138,8 +144,14 @@ function validateActionBody(req, res, next) {
         return res.status(400).json({message: 'missing required data field notes: (String)'})
     }
 
-    req.body = {description, notes, completed: completed?true:false}
-    next()
+    if (completed === undefined) {
+        req.body = {description, notes}
+        next()
+    }
+    else {
+        req.body = {description, notes, completed: completed?true:false}
+        next()
+    }
 }
 
 module.exports=router

@@ -83,8 +83,14 @@ function validateActionBody(req, res, next) {
         return res.status(400).json({message: 'missing required data field notes: (String)'})
     }
 
-    req.body = {description, notes, completed: completed?true:false}
-    next()
+    if (completed === undefined) {
+        req.body = {description, notes}
+        next()
+    }
+    else {
+        req.body = {description, notes, completed: completed?true:false}
+        next()
+    }
 }
 
 module.exports=router
