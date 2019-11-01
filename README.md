@@ -24,15 +24,25 @@ In this challenge, create a web API around the following resources: `Projects` a
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
 
-- [ ] Mention two parts of Express that you learned about this week.
+- [x] Mention two parts of Express that you learned about this week.
 
-- [ ] Describe Middleware?
+   The Express library simplifies much of server software creation. `express()` constructor creates a server object which we can further configure through its methods such as `use`, `get`, `post`, `listen`, and more. `express.json()` returns middleware that we can use to interpret incoming data as javascript objects.
 
-- [ ] Describe a Resource?
+- [x] Describe Middleware?
 
-- [ ] What can the API return to help clients know if a request was successful?
+   Middleware are basic functions that are given access to the request and response objects (and possibly thrown errors too) and can use or alter them and stop or continue to the next middleware in the chain.
 
-- [ ] How can we partition our application into sub-applications?
+- [x] Describe a Resource?
+
+   A resource is simply a file or data. The purpose of an API is to manage resources (CRUD and IO).
+
+- [x] What can the API return to help clients know if a request was successful?
+
+   HTTP status codes are a standardized set of numbers that tell the client if a request was successful, failed, redirected, etc. Status codes in the 200s indicate success.
+
+- [x] How can we partition our application into sub-applications?
+
+   We can use routing middleware (`express.Router()`) and module import/export to divide an API into different files/partitions based on url pathing.
 
 ## Project Setup
 
