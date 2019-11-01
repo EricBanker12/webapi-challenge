@@ -1,4 +1,6 @@
 const router = require('express').Router()
+
+const actionsModel = require('../data/helpers/actionModel')
 const projectModel = require('../data/helpers/projectModel')
 
 // Routing
@@ -43,6 +45,18 @@ router.delete('/:id', validateProjectId, (req, res) => {
     .then(resp => {
         // console.log(resp)
         res.sendStatus(204)
+    })
+    .catch(err => {
+        console.log(err)
+        res.sendStatus(500)
+    })
+})
+
+router.post('/:id/actions', validateActionBody, validateProjectId, (req, res) => {
+    actionsModel.insert({...req.body, project_id: req.project.id})
+    .then(resp => {
+        // console.log(resp)
+        res.status(201).json(resp)
     })
     .catch(err => {
         console.log(err)
@@ -104,6 +118,28 @@ function validateProjectId(req, res, next) {
         console.log(err)
         res.sendStatus(500)
     })
+}
+
+function validateActionBody(req, res, next) {
+    const {description, notes, completed} = req.body
+    
+    if (!req.body) {
+        return res.status(400).json({message: 'missing body data'})
+    }
+
+    if (!description || typeof description !== 'string' || description.length > 128) {
+        if (description.length > 128) {
+            return res.status(400).json({message: 'data field description: (String) exceeded 128 character limit'})
+        }
+        return res.status(400).json({message: 'missing required data field description: (String)'})
+    }
+
+    if (!notes || typeof notes !== 'string') {
+        return res.status(400).json({message: 'missing required data field notes: (String)'})
+    }
+
+    req.body = {description, notes, completed: completed?true:false}
+    next()
 }
 
 module.exports=router
