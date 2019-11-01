@@ -12,3 +12,20 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
+const express = require('express')
+const helmet = require('helmet')
+
+const server = express()
+
+// middleware
+server.use(helmet())
+server.use(express.json())
+
+// routing
+
+// start server
+const port = process.env.PORT || 5000
+
+server.listen(port, () => {
+    console.log(`=== Listening on port ${port} ===`)
+})
