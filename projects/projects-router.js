@@ -38,6 +38,18 @@ router.put('/:id', validateProjectBody, validateProjectId, (req, res) => {
     })
 })
 
+router.delete('/:id', validateProjectId, (req, res) => {
+    projectModel.remove(req.project.id)
+    .then(resp => {
+        // console.log(resp)
+        res.sendStatus(204)
+    })
+    .catch(err => {
+        console.log(err)
+        res.sendStatus(500)
+    })
+})
+
 // middleware
 function validateProjectBody(req, res, next) {
     const {name, description, completed} = req.body
