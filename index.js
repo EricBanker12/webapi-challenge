@@ -15,6 +15,8 @@ Go code!
 const express = require('express')
 const helmet = require('helmet')
 
+const projectsRouter = require('./projects/projects-router')
+
 const server = express()
 
 // middleware
@@ -22,6 +24,7 @@ server.use(helmet())
 server.use(express.json())
 
 // routing
+server.use('/api/projects', projectsRouter)
 
 // start server
 const port = process.env.PORT || 5000
