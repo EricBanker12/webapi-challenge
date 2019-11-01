@@ -12,3 +12,25 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
+const express = require('express')
+const helmet = require('helmet')
+
+const actionsRouter = require('./actions/actions-router')
+const projectsRouter = require('./projects/projects-router')
+
+const server = express()
+
+// middleware
+server.use(helmet())
+server.use(express.json())
+
+// routing
+server.use('/api/projects', projectsRouter)
+server.use('/api/actions', actionsRouter)
+
+// start server
+const port = process.env.PORT || 5000
+
+server.listen(port, () => {
+    console.log(`=== Listening on port ${port} ===`)
+})
