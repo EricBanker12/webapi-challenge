@@ -20,8 +20,8 @@ const projectsRouter = require('./projects/projects-router')
 const server = express()
 
 // middleware
+server.use(helmet())
 server.use(express.json())
-// server.use(helmet())
 
 // routing
 server.use('/api/projects', projectsRouter)
